@@ -1,6 +1,22 @@
 version: '3.8'
 
 services:
+
+  backend:
+      build:
+        context: ./express
+        dockerfile: Dockerfile
+      ports:
+        - "5000:5000"
+      environment: 
+        - DB_USER=${POSTGRES_USER}
+        - DB_HOST=bug-tracker-postgres
+        - DB_NAME=tracker
+        - DB_PASSWORD=${POSTGRES_PASSWORD}
+        - DB_PORT=5432
+      depends_on:
+        - postgres
+
   postgres:
     container_name: bug-tracker-postgres
     image: postgres:latest

@@ -1,11 +1,12 @@
 const { Pool } = require('pg');
 const pool = new Pool({  
-    user: 'myuser',
-    host: 'localhost:5432',
-    database: 'tracker',
-    password: 'mypassword',
-    port: 3211
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
  });
+
 
 exports.query = async (text, params) => {
     const res = await pool.query(text, params);
