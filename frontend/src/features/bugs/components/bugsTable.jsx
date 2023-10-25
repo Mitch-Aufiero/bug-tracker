@@ -84,8 +84,8 @@ const BugsTable = () => {
                     </thead>
                     <tbody>
                         {bugs.map(bug => (
-                            <tr key={bug.id}>
-                                <td>{bug.id}</td>
+                            <tr key={bug.bug_id}>
+                                <td>{bug.bug_id}</td>
                                 <td>{bug.title}</td>
                                 <td>{bug.description}</td>
                                 <td>{bug.status}</td>
