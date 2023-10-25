@@ -1,10 +1,13 @@
 # Bug Tracker App
 
-A comprehensive bug tracker application built using React for the frontend, Express.js for the backend, PostgreSQL as the database, and Redis for caching. The entire stack is dockerized using Docker Compose for quick and easy setup.
+A comprehensive bug tracker application built using React for the frontend, Express.js for the backend, PostgreSQL as the database, and Redis for caching. The entire stack is containerized using Docker Compose for quick and easy setup.
+
+**Note**: This project is a work-in-progress, and I'm actively updating it daily.
 
 ## Table of Contents
 
 - [Features](#features)
+- [Technologies Used](#technologies-used)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 - [Application Structure](#application-structure)
@@ -16,6 +19,20 @@ A comprehensive bug tracker application built using React for the frontend, Expr
 - **Bug Management**: Users can create, update, view, and delete bugs.
 - **Caching**: Utilizes Redis to cache frequently accessed data.
 - **Dockerized**: Quick setup using Docker Compose.
+
+## Technologies Used
+
+- **Frontend**:
+  - **Framework**: React
+  - **State Management**: Redux
+  - **Styling**: Styled Components
+
+- **Backend**:
+  - **Framework**: Express.js
+  - **Testing**: Jest
+
+- **Database**:
+  - PostgreSQL (Initial seed data can be found in `postgreSQL/init/seed.sql`)
 
 ## Prerequisites
 
@@ -47,12 +64,12 @@ A comprehensive bug tracker application built using React for the frontend, Expr
 
 ```
 bug-tracker-app/
-|-- react/     # Frontend code (React)
+|-- react/     # Frontend code (React, Redux, Styled Components)
 |   |-- src/
 |   |-- public/
 |   |-- Dockerfile
 |   `-- ...
-|-- express/                  # Backend code (Express.js)
+|-- express/                  # Backend code (Express.js with Jest for unit testing)
 |   |-- routes/
 |   |-- middleware/
 |   |-- Dockerfile
@@ -61,3 +78,8 @@ bug-tracker-app/
 |-- cache/                    # Cache configurations (Redis)
 `-- docker-compose.yml
 ```
+
+## Additional Notes
+
+- Please report any issues or feature requests as this project continues to evolve.
+- This is a personal project, but feel free to fork!
