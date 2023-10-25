@@ -1,0 +1,102 @@
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+import { apiRequest } from '../../../api/api';
+
+const Table = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+
+    table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+
+    
+    tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #FDE5D4;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #D6CC99;
+    }
+
+    &,
+    th,
+    td {
+        border: thin solid black;
+    }
+
+    th,
+    td {
+        padding: 12px 15px;
+    }
+
+    th {
+        background-color: #445D48;
+        color: #ffffff;
+        text-align: left;
+    }
+`;
+
+const BugsTable = () => {
+    const [bugs, setBugs] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchBugs() {
+            try {
+                const data = await apiRequest('/bugs');
+                setBugs(data);
+                setLoading(false);
+                console.log(data);
+            } catch (error) {
+                console.error("Error fetching bugs:", error);
+                setLoading(false);
+            }
+        }
+        
+        fetchBugs();
+    }, []);
+
+    return (
+        <div>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th><div>Actions</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {bugs.map(bug => (
+                            <tr key={bug.id}>
+                                <td>{bug.id}</td>
+                                <td>{bug.title}</td>
+                                <td>{bug.description}</td>
+                                <td>{bug.status}</td>
+                                <td><div>Actions</div></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            )}
+        </div>
+    );
+}
+
+export default BugsTable;
