@@ -13,15 +13,19 @@ const mockUsers = [
     
 ];
 
+const Statuses = ['New', 'In Progress', 'Resolved', 'Closed'];
+const Severities = ['Low', 'Medium', 'High', 'Critical'];
+const Types = ['Functional Bug', 'Performance Bug', 'UI Bug'];
+
 
 function BugForm() {
     const [formData, setFormData] = useState({
         title: '',
-        type: '',
-        severity: '',
+        type: 'Functional Bug',
+        severity: 'Low',
         project: '',
         desc: '',
-        status: '',
+        status: 'New',
         assignedTo: '',
         reportedBy: '',
     });
@@ -83,23 +87,29 @@ function BugForm() {
             </div>
             <div>
                 <label htmlFor="type">Bug Type</label>
-                <input
-                    type="text"
-                    id="type"
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                />
+                    <select
+                        id="type"
+                        name="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                    >
+                        {Types.map(type => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </select>
             </div>
             <div>
                 <label htmlFor="severity">Severity</label>
-                <input
-                    type="text"
+                <select
                     id="severity"
                     name="severity"
                     value={formData.severity}
                     onChange={handleChange}
-                />
+                >
+                    {Severities.map(severity => (
+                        <option key={severity} value={severity}>{severity}</option>
+                    ))}
+                </select>
             </div>
             <div>
                 <label htmlFor="project">Project</label>
@@ -127,13 +137,16 @@ function BugForm() {
             </div>
             <div>
                 <label htmlFor="status">Status</label>
-                <input
-                    type="text"
+                <select
                     id="status"
                     name="status"
                     value={formData.status}
                     onChange={handleChange}
-                />
+                >
+                    {Statuses.map(status => (
+                        <option key={status} value={status}>{status}</option>
+                    ))}
+                </select>
             </div>
             <div>
                 <label htmlFor="assignedTo">Assigned To</label>
