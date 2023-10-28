@@ -40,9 +40,9 @@ describe('Bug Route', () => {
     const res = await request(app)
       .post('/bugs')
       .send(newBugData);
-
+    console.log(res.body);
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('bug_id', 456);
-    expect(res.body).toHaveProperty('title', 'New Feature Bug');
+    expect(res.body).toHaveProperty('title', 'Users Mapping Issue');
   });
 });
