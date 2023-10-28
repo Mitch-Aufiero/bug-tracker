@@ -24,7 +24,7 @@ function BugForm() {
         type: 'Functional Bug',
         severity: 'Low',
         project: '',
-        desc: '',
+        description: '',
         status: 'New',
         assignedTo: '',
         reportedBy: '',
@@ -126,12 +126,12 @@ function BugForm() {
                 </select>
             </div>
             <div>
-                <label htmlFor="desc">Description</label>
+                <label htmlFor="description">Description</label>
                 <input
                     type="text"
-                    id="desc"
-                    name="desc"
-                    value={formData.desc}
+                    id="description"
+                    name="description"
+                    value={formData.description}
                     onChange={handleChange}
                 />
             </div>
