@@ -16,4 +16,33 @@ describe('Bug Route', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('title', 'Login Bug');
   });
+
+  it('should create a new bug', async () => {
+    const newBugData = {
+      title: 'Users Mapping Issue',
+      description: 'Users get lost without a map',
+      status: 'New',
+      severity: 'Low',
+      type: 'Functional Bug',
+      project_id: 1,
+      reported_by: 1
+    };
+
+    const mockCreatedBug = {
+      bug_id: 456,
+      ...newBugData,
+      date_reported: new Date().toISOString(),
+      last_modified: new Date().toISOString()
+    };
+
+    bugModel.create.mockResolvedValue(mockCreatedBug);
+
+    const res = await request(app)
+      .post('/bugs')
+      .send(newBugData);
+
+    expect(res.statusCode).toEqual(201);
+    expect(res.body).toHaveProperty('bug_id', 456);
+    expect(res.body).toHaveProperty('title', 'New Feature Bug');
+  });
 });
