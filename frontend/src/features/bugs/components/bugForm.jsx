@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiRequest } from '../../../api/api';
 
 function BugForm() {
     const [formData, setFormData] = useState({
@@ -21,9 +22,21 @@ function BugForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault(); 
-        console.log('Form Data Submitted:', formData);
+        submitBug(formData);
         
     };
+
+    async function submitBug(bug) {
+        try {
+
+            const data = await apiRequest('/bugs','post',bug);
+            //setLoading(false);
+
+        } catch (error) {
+            console.error("Error fetching bugs:", error);
+            //setLoading(false);
+        }
+    }
 
     return (
         <form onSubmit={handleSubmit}>

@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <h1>Bug Tracker</h1>
       <BugForm />
+      <BugsTable />
     </div>
   );
 }

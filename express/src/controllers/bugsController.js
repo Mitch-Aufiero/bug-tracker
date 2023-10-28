@@ -17,6 +17,7 @@ exports.getBugById = async (req, res) => {
 
 exports.createBug = async (req, res) =>{
     try {
+      console.log(req.body);
         const newBug = await bugService.createBug(req.body);
         res.status(201).json(newBug);
       } catch (error) {
