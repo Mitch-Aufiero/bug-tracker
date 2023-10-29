@@ -2,8 +2,8 @@ const request = require('supertest');
 const projectModel = require('../../src/models/projectModel');
 const app = require('../../app'); 
 
-// Mocking the userModel.findById function
 jest.mock('../../src/models/projectModel');
+
 
 describe('Project Route', () => {
   it('should fetch a project by ID', async () => {

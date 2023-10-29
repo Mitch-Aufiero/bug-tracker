@@ -12,9 +12,11 @@ app.use(express.json())
 
 // Import routes
 const bugsRoute = require('./src/routes/bugs'); 
+const projectsRoute = require('./src/routes/projects'); 
 
 // Use routes
 app.use('/bugs', bugsRoute);
+app.use('/projects',projectsRoute);
 
 const PORT = process.env.PORT || 5000;
 var server = app.listen(PORT, () => {
