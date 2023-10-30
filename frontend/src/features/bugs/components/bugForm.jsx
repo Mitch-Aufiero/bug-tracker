@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { apiRequest } from '../../../api/api';
 
-const mockProjects = [
-    { id: 1, name: 'Project Alpha' },
-    { id: 2, name: 'Project Beta' },
-    
-];
 
 const mockUsers = [
     { id: 1, name: 'Mortimer Cat\'O Darkness' },
@@ -29,9 +24,24 @@ function BugForm() {
         assignedTo: '',
         reportedBy: '',
     });
-    const [projects, setProjects] = useState(mockProjects);
     const [users, setUsers] = useState(mockUsers);
+    const [projects, setProjects ] = useState([]);
+    
+    useEffect(() => {
+        
+        fetchProjects();
 
+    }, []);
+
+    async function fetchProjects() {
+        try {
+            const data = await apiRequest('/projects');
+            setProjects(data);
+            console.log(data);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    }
     const handleChange = (event) => {
         setFormData({
             ...formData,
@@ -39,9 +49,8 @@ function BugForm() {
         });
     };
 
-    async function usersDropdownPreload(){
-        //call api
-    }
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault(); 
@@ -121,7 +130,7 @@ function BugForm() {
                     onChange={handleChange}
                 >
                     {projects.map(project => (
-                        <option key={project.id} value={project.id}>{project.name}</option>
+                        <option key={project.project_id} value={project.project_id}>{project.name}</option>
                     ))}
                 </select>
             </div>
