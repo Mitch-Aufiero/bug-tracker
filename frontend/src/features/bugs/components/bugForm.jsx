@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiRequest } from '../../../api/api';
-import { Label, Input, Select, Button } from '../../../components/formStyles.js'
+import { Label, Input, Select, Button, Section } from '../../../components/formStyles.js'
 import styled from 'styled-components';
 
 const mockUsers = [
@@ -27,44 +27,6 @@ const FormContainer = styled.form`
         "desc desc desc side";
     text-align: left;
     grid-gap: 0.25rem;
-`;
-const TitleSection = styled.div`
-    grid-area: title;
-    padding: 0.25rem;
-    display: flex;
-    flex-direction: column;
-   
-`;
-
-const TypeSection = styled.div`
-    grid-area: type;
-    padding: 0.25rem;
-    display: flex;
-    flex-direction: column;
-`;
-const SeveritySection = styled.div`
-    grid-area: severity;
-    padding: 0.25rem;
-    display: flex;
-    flex-direction: column;
-`;
-const ProjectSection = styled.div`
-    grid-area: project;
-    padding: 0.25rem;
-    display: flex;
-    flex-direction: column;
-`;
-const DescSection = styled.div`
-    grid-area: desc;
-    padding: 0.25rem
-    display: flex;
-    flex-direction: column;
-`;
-const SideSection = styled.div`
-    grid-area: side;
-    padding: 2.25rem;
-    display: flex;
-    flex-direction: column;
 `;
 function BugForm() {
     const [formData, setFormData] = useState({
@@ -138,7 +100,7 @@ function BugForm() {
     return (
 
         <FormContainer onSubmit={handleSubmit}>
-            <TitleSection>
+            <Section gridArea='title'>
                 <Label htmlFor="title">Title</Label>
                 <Input
                     type="text"
@@ -147,8 +109,8 @@ function BugForm() {
                     value={formData.title}
                     onChange={handleChange}
                 />
-            </TitleSection>
-            <TypeSection>
+            </Section>
+            <Section gridArea='type'>
                 <Label htmlFor="type">Bug Type</Label>
                 <Select
                     id="type"
@@ -160,8 +122,8 @@ function BugForm() {
                         <option key={type} value={type}>{type}</option>
                     ))}
                 </Select>
-            </TypeSection>
-            <SeveritySection>
+            </Section>
+            <Section gridArea='severity'>
                 <Label htmlFor="severity">Severity</Label>
                 <Select
                     id="severity"
@@ -173,8 +135,8 @@ function BugForm() {
                         <option key={severity} value={severity}>{severity}</option>
                     ))}
                 </Select>
-            </SeveritySection>
-            <ProjectSection>
+            </Section>
+            <Section gridArea='project'>
                 <Label htmlFor="project">Project</Label>
                 <Select
                     type="number"
@@ -187,8 +149,8 @@ function BugForm() {
                         <option key={project.project_id} value={project.project_id}>{project.name}</option>
                     ))}
                 </Select>
-            </ProjectSection>
-            <DescSection>
+            </Section>
+            <Section gridArea='desc'>
                 <Label htmlFor="description">Description</Label>
                 <Input
                     type="text"
@@ -197,8 +159,8 @@ function BugForm() {
                     value={formData.description}
                     onChange={handleChange}
                 />
-            </DescSection>
-            <SideSection>
+            </Section>
+            <Section gridArea='side' padding='2.25rem'>
                 <Button type="submit">Submit</Button>
                 <Label htmlFor="status">Status</Label>
                 <Select
@@ -237,7 +199,7 @@ function BugForm() {
                         <option key={user.id} value={user.id}>{user.name}</option>
                     ))}
                 </Select>
-            </SideSection>
+            </Section>
 
         </FormContainer>
     );

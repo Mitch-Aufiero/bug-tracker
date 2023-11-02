@@ -20,6 +20,13 @@ export const Select = styled.select`
   box-sizing: border-box;
 `;
 
+export const Section  = styled.div`
+grid-area:  ${props => props.gridArea };
+padding: ${props => props.padding || '0.25rem' };
+display: flex;
+flex-direction: column;
+`;
+
 export const Button = styled.button`
   padding: 0.25rem;
   background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
