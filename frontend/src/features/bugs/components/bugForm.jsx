@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiRequest } from '../../../api/api';
-import { Label, Input, Select, Button, Section } from '../../../components/formStyles.js'
+import { Label, Input, Select, Button, Section, TextArea } from '../../../components/formStyles.js'
 import styled from 'styled-components';
 
 const mockUsers = [
@@ -24,6 +24,7 @@ const FormContainer = styled.form`
     grid-template-areas:
         "title title title side"
         "type severity project side"
+        "desc desc desc side"
         "desc desc desc side";
     text-align: left;
     grid-gap: 0.25rem;
@@ -41,6 +42,8 @@ function BugForm() {
     });
     const [users, setUsers] = useState(mockUsers);
     const [projects, setProjects] = useState([]);
+    const [isTitleValid, setIsTitleValid] = useState(true);
+
 
     useEffect(() => {
 
@@ -69,7 +72,11 @@ function BugForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        submitBug(formData);
+        if(formData.title.length < 3){
+            setIsTitleValid(false);
+        }else{
+            submitBug(formData);
+        }
 
     };
 
@@ -106,6 +113,7 @@ function BugForm() {
                     type="text"
                     id="title"
                     name="title"
+                    isValid={isTitleValid}
                     value={formData.title}
                     onChange={handleChange}
                 />
@@ -152,7 +160,7 @@ function BugForm() {
             </Section>
             <Section gridArea='desc'>
                 <Label htmlFor="description">Description</Label>
-                <Input
+                <TextArea
                     type="text"
                     id="description"
                     name="description"

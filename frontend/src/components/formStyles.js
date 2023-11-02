@@ -7,10 +7,23 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 100%;
   padding: 0.5rem;
+  border: 1px solid ${props => props.isValid ? '#ccc' : 'red'};
+  border-radius: 4px;
+  box-sizing: border-box;
+  
+`;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  resize: none;
+  height: 130px; 
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  
 `;
+
 
 export const Select = styled.select`
   width: 100%;
