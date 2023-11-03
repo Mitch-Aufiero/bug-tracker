@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
+import { fetchBugs } from '../slices/bugSlice';
 
 import { apiRequest } from '../../../api/api';
 
@@ -48,24 +50,15 @@ const Table = styled.table`
 `;
 
 const BugsTable = () => {
-    const [bugs, setBugs] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const {items: bugs, loading} = useSelector(state => state.bugs || {});
+
+    //const [bugs, setBugs] = useState([]);
+    //const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchBugs() {
-            try {
-                const data = await apiRequest('/bugs');
-                setBugs(data);
-                setLoading(false);
-                console.log(data);
-            } catch (error) {
-                console.error("Error fetching bugs:", error);
-                setLoading(false);
-            }
-        }
-        
-        fetchBugs();
-    }, []);
+        dispatch(fetchBugs());
+    }, [dispatch]);
 
     return (
         <div>
@@ -83,7 +76,7 @@ const BugsTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {bugs.map(bug => (
+                        {bugs?.map(bug => (
                             <tr key={bug.bug_id}>
                                 <td>{bug.bug_id}</td>
                                 <td>{bug.title}</td>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { apiRequest } from '../../../api/api';
+import { fetchBugs } from '../slices/bugSlice';
 import { Label, Input, Select, Button, Section, TextArea } from '../../../components/formStyles.js'
 import styled from 'styled-components';
 
@@ -30,6 +32,7 @@ const FormContainer = styled.form`
     grid-gap: 0.25rem;
 `;
 function BugForm() {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         title: '',
         type: 'Functional Bug',
@@ -96,7 +99,17 @@ function BugForm() {
         try {
             const bugData = prepDataForSubmission(bug);
             const data = await apiRequest('/bugs', 'post', bugData);
+            dispatch(fetchBugs()); 
             //setLoading(false);
+            setFormData({        title: '',
+                type: 'Functional Bug',
+                severity: 'Low',
+                project: '',
+                description: '',
+                status: 'New',
+                assignedTo: '',
+                reportedBy: '',
+            });
 
         } catch (error) {
             console.error("Error fetching bugs:", error);
