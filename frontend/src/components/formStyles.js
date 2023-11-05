@@ -34,10 +34,10 @@ export const Select = styled.select`
 `;
 
 export const Section  = styled.div`
-grid-area:  ${props => props.gridArea };
-padding: ${props => props.padding || '0.25rem' };
-display: flex;
-flex-direction: column;
+  grid-area:  ${props => props.gridArea };
+  padding: ${props => props.padding || '0.25rem' };
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Button = styled.button`
