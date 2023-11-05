@@ -17,18 +17,13 @@ const Table = styled.table`
         min-width: 400px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
-
-
     
     tbody tr {
-        border-bottom: 1px solid #dddddd;
+        border-bottom: 1px solid whi;
     }
 
-    tbody tr:nth-child(odd) {
-        background-color: #FDE5D4;
-    }
     tbody tr:nth-child(even) {
-        background-color: #D6CC99;
+        background-color: #F7F3E3;
     }
 
     &,
@@ -43,8 +38,8 @@ const Table = styled.table`
     }
 
     th {
-        background-color: #445D48;
-        color: #ffffff;
+        background-color: #A8763E;
+        color: #ECF0F1;
         text-align: left;
     }
 `;

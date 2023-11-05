@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const PageContainer = styled.div`
     display: grid;
     height: 100vh;
-    color: grey;
+    color: #2B2118;
     
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 1fr 1fr 1fr;

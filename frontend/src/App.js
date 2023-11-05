@@ -4,15 +4,13 @@ import Home from './features/pages/Home';
 import Projects from './features/pages/Projects';
 import Bugs from './features/pages/Bugs';
 import CreateBug from './features/pages/CreateBug';
-import BugsTable from './features/bugs/components/bugsTable';
-
-import BugForm from './features/bugs/components/bugForm';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Bug Tracker</h1>
+        <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
