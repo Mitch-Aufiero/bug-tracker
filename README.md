@@ -18,7 +18,7 @@ A comprehensive bug tracker application built using React for the frontend, Expr
 - **User Authentication**: Register, login, and logout functionality.
 - **Bug Management**: Users can create, update, view, and delete bugs.
 - **Caching**: Utilizes Redis to cache frequently accessed data.
-- **Dockerized**: Quick setup using Docker Compose.
+- **Containerized**: Quick setup using Docker Compose.
 
 ## Technologies Used
 
@@ -44,8 +44,8 @@ A comprehensive bug tracker application built using React for the frontend, Expr
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/bug-tracker-app.git
-   cd bug-tracker-app
+   git clone https://github.com/yourusername/bug-tracker.git
+   cd bug-tracker
    ```
 
 2. **Run using Docker Compose**:
