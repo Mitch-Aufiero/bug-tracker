@@ -44,7 +44,7 @@ A comprehensive bug tracker application built using React for the frontend, Expr
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/bug-tracker.git
+   git clone https://github.com/Mitch-Aufiero/bug-tracker.git
    cd bug-tracker
    ```
 
