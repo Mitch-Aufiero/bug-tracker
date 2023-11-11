@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Section } from '../../components/gridStyles'; 
 import BugList from './BugList';
-import { fetchBugs } from '../bugs/slices/bugSlice';
+import { fetchBugs, selectCriticalBugs } from '../bugs/slices/bugSlice';
 
 import styled from 'styled-components';
 
@@ -22,9 +22,9 @@ const GridArea = styled.form`
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas:
         "title title header"
-        "topbugs criticalbugs assignees"
-        "topbugs criticalbugs assignees"
-        "topbugs criticalbugs assignees";
+        "topbugs status assignees"
+        "topbugs status assignees"
+        "topbugs status assignees";
     text-align: left;
     grid-gap: 0.25rem;
 `;
@@ -32,13 +32,14 @@ const GridArea = styled.form`
 const ProjectCard = () => {
     const dispatch = useDispatch();
     const {items: bugs, loading} = useSelector(state => state.bugs || {});
+    const criticalBugs = useSelector(selectCriticalBugs);
 
 
     useEffect(() => {
         dispatch(fetchBugs());
     }, [dispatch]);
 
-    
+
     return (
         <GridArea>
             <Section gridArea='title'>
@@ -49,10 +50,10 @@ const ProjectCard = () => {
             </Section>
             <Section gridArea='topbugs'>
                 <label>Top Bugs</label>
-                <BugList bugs={bugs}/>
+                <BugList bugs={criticalBugs}/>
             </Section>
-            <Section gridArea='criticalbugs'>
-            <label>Critical Bugs</label>
+            <Section gridArea='status'>
+            <label>Bugs by Status</label>
                 <BugList bugs={bugs}/>
             </Section>
             <Section gridArea='assignees'>

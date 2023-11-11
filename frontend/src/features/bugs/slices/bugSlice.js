@@ -15,6 +15,7 @@ export const fetchBugs = createAsyncThunk(
   }
 );
 
+export const selectCriticalBugs = state => state.bugs.items.filter(bug => bug.severity === 'Critical');
 
 const bugsSlice = createSlice({
   name: 'bugs',
