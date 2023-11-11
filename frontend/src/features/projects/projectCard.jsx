@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Section } from '../../components/gridStyles'; 
-import BugList from './BugList';
-import { fetchBugs, selectCriticalBugs } from '../bugs/slices/bugSlice';
+import List from './List';
+import { fetchBugs, selectCriticalBugs,selectBugsBySeverity, selectBugsByAssignee } from '../bugs/slices/bugSlice';
 
 import styled from 'styled-components';
 
@@ -33,7 +33,8 @@ const ProjectCard = () => {
     const dispatch = useDispatch();
     const {items: bugs, loading} = useSelector(state => state.bugs || {});
     const criticalBugs = useSelector(selectCriticalBugs);
-
+    const bugsBySeverity = useSelector(selectBugsBySeverity);
+    const bugsByAssignee = useSelector(selectBugsByAssignee);
 
     useEffect(() => {
         dispatch(fetchBugs());
@@ -50,15 +51,15 @@ const ProjectCard = () => {
             </Section>
             <Section gridArea='topbugs'>
                 <label>Top Bugs</label>
-                <BugList bugs={criticalBugs}/>
+                <List data={criticalBugs} renderFormat={bug=>`${bug.title} - ${bug.assigned_to}`}/>
             </Section>
             <Section gridArea='status'>
-            <label>Bugs by Status</label>
-                <BugList bugs={bugs}/>
+                <label>Bugs by Status</label>
+                <List data={bugsBySeverity} renderFormat={severity=>`${severity.name} - ${severity.count}`}/>
             </Section>
             <Section gridArea='assignees'>
-            <label>Bugs by Assignee</label>
-                <BugList bugs={bugs}/>
+                <label>Bugs by Assignee</label>
+                <List data={bugsByAssignee} renderFormat={severity=>`${severity.name} - ${severity.count}`}/>
             </Section>
         </GridArea>
     );
