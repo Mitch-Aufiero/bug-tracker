@@ -3,9 +3,10 @@ import { apiRequest } from '../../../api/api';
 
 export const fetchBugs = createAsyncThunk(
   'bugs/fetchBugs',
-  async (thunkAPI) => {
+  async (queryString = '', thunkAPI) => {
     try{
-      const response = await apiRequest('/bugs');
+      const endpoint = queryString ? `/bugs?query=${queryString}` : '/bugs';
+      const response = await apiRequest(endpoint);
       return response;
 
     } catch(error) {
