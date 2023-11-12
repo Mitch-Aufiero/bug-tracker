@@ -15,11 +15,17 @@ export const fetchBugs = createAsyncThunk(
   }
 );
 
-export const selectCriticalBugs = state => state.bugs.items.filter(bug => bug.severity === 'Critical');
-export const selectBugsBySeverity = (state) => {
+export const selectBugsByProjectId = (projectId) => {
+  return (state) => {
+    return state.bugs.items.filter(bug => bug.project_id === projectId);
+  };
+};
+
+export const selectCriticalBugs = (bugs) => bugs.filter(bug => bug.severity === 'Critical');
+export const selectBugsBySeverity = (bugs) => {
   const severityMap = [{name:'Critical', count:0},{name:'High', count:0},{name:'Medium', count:0},{name:'Low', count:0}];
 
-  state.bugs.items.forEach(bug => { 
+  bugs.forEach(bug => { 
     const severityItem = severityMap.find(item => item.name === bug.severity);
 
     if (severityItem) {
@@ -29,13 +35,12 @@ export const selectBugsBySeverity = (state) => {
     }
 
   });
-  console.log(severityMap);
   return severityMap;
 };
-export const selectBugsByAssignee = (state) => {
+export const selectBugsByAssignee = (bugs) => {
   const assigneeMap = [];
 
-  state.bugs.items.forEach(bug => { 
+  bugs.forEach(bug => { 
     const assigneeItem = assigneeMap.find(item => item.name === bug.assigned_to);
     
     if (assigneeItem) {
@@ -48,6 +53,7 @@ export const selectBugsByAssignee = (state) => {
 
   return assigneeMap;
 };
+
 
 
 const bugsSlice = createSlice({

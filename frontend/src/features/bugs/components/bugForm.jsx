@@ -59,7 +59,6 @@ function BugForm() {
         try {
             const data = await apiRequest('/projects');
             setProjects(data);
-            console.log(data);
         } catch (error) {
             console.error("Error fetching projects:", error);
         }

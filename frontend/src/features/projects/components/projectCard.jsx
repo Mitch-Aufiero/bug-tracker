@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { Section } from '../../components/gridStyles'; 
+import { Section } from '../../../components/gridStyles'; 
 import List from './List';
-import { fetchBugs, selectCriticalBugs,selectBugsBySeverity, selectBugsByAssignee } from '../bugs/slices/bugSlice';
+import { fetchBugs, selectCriticalBugs,selectBugsBySeverity, selectBugsByAssignee, selectBugsByProjectId } from '../../bugs/slices/bugSlice';
 
 import styled from 'styled-components';
-
-
-
 
 
 
@@ -29,12 +26,12 @@ const GridArea = styled.form`
     grid-gap: 0.25rem;
 `;
 
-const ProjectCard = () => {
+const ProjectCard = ({project}) => {
     const dispatch = useDispatch();
-    const {items: bugs, loading} = useSelector(state => state.bugs || {});
-    const criticalBugs = useSelector(selectCriticalBugs);
-    const bugsBySeverity = useSelector(selectBugsBySeverity);
-    const bugsByAssignee = useSelector(selectBugsByAssignee);
+    const bugs = useSelector(selectBugsByProjectId(project.project_id))
+    const criticalBugs = selectCriticalBugs(bugs);
+    const bugsBySeverity = selectBugsBySeverity(bugs);
+    const bugsByAssignee = selectBugsByAssignee(bugs);
 
     useEffect(() => {
         dispatch(fetchBugs());
@@ -44,7 +41,7 @@ const ProjectCard = () => {
     return (
         <GridArea>
             <Section gridArea='title'>
-                <label>Project Alpha</label>
+                <label>{project.name}</label>
             </Section>
             <Section gridArea='header'>
                 <select>Actions</select>
