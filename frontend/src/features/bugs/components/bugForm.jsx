@@ -38,7 +38,7 @@ function BugForm() {
         title: '',
         type: 'Functional Bug',
         severity: 'Low',
-        project: '',
+        project_id: 1,
         description: '',
         status: 'New',
         assignedTo: '',
@@ -104,7 +104,7 @@ function BugForm() {
             setFormData({        title: '',
                 type: 'Functional Bug',
                 severity: 'Low',
-                project: '',
+                project_id: bug.project_id,
                 description: '',
                 status: 'New',
                 assignedTo: '',
@@ -160,10 +160,9 @@ function BugForm() {
             <Section gridArea='project'>
                 <Label htmlFor="project">Project</Label>
                 <Select
-                    type="number"
                     id="project"
                     name="project"
-                    value={formData.project}
+                    value={formData.project_id}
                     onChange={handleChange}
                 >
                     {projects.map(project => (

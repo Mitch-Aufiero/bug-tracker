@@ -12,7 +12,7 @@ export const apiRequest = async (endpoint, method = 'GET', body = null, headers 
     if (body) {
         config.body = JSON.stringify(body);
     }
-   
+    
     const response = await fetch(`${BASE_URL}${endpoint}`, config);
     if (!response.ok) {
         const responseData = await response.json();

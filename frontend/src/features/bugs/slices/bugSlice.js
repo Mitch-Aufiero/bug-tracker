@@ -21,8 +21,11 @@ export const selectBugsByProjectId = (projectId) => {
   };
 };
 
-export const selectCriticalBugs = (bugs) => bugs.filter(bug => bug.severity === 'Critical');
-export const selectBugsBySeverity = (bugs) => {
+export const selectCriticalBugs = (bugs) => {
+  const criticalBugs = bugs.filter(bug => bug.severity === 'Critical');
+  return criticalBugs;
+};
+  export const selectBugsBySeverity = (bugs) => {
   const severityMap = [{name:'Critical', count:0},{name:'High', count:0},{name:'Medium', count:0},{name:'Low', count:0}];
 
   bugs.forEach(bug => { 

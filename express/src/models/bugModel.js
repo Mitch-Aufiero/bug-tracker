@@ -18,7 +18,7 @@ exports.create = async(bugData) => {// should probably use the active record pat
         `INSERT INTO bugs (title, description, status, severity, type, project_id, reported_by, assigned_to)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
          RETURNING *`, 
-        [bugData.title, bugData.description, bugData.status, bugData.severity, bugData.type, bugData.projectId, bugData.reportedBy, bugData.assignedTo]
+        [bugData.title, bugData.description, bugData.status, bugData.severity, bugData.type, bugData.project_id, bugData.reportedBy, bugData.assignedTo]
       );
       return result;
 }
