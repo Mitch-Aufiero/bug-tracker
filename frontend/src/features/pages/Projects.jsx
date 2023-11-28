@@ -1,6 +1,6 @@
 import React, { useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import ProjectCard from '../projects/components/projectCard';
+import { Table } from '../../components/tableStyles';
 import {fetchProjects} from '../projects/slices/ProjectSlice';
 
 function Projects() {
@@ -18,10 +18,30 @@ function Projects() {
         {loading ? (
           <p>Loading...</p>
         ) : ( 
-          projects?.map((proj, index) => (
-            <ProjectCard project={proj}/>
+            <Table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Date Created</th>
+                            <th><div>Actions</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {projects?.map(proj => (
+                            <tr key={proj.project_id}>
+                                <td>{proj.project_id}</td>
+                                <td>{proj.name}</td>
+                                <td>{proj.description}</td>
+                                <td>{proj.date_created}</td>
+                                <td><div>Actions</div></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
 
-          )))}
+        )}
           
 
         
