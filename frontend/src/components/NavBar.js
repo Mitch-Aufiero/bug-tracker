@@ -19,7 +19,7 @@ const NavBar = () => {
 
           <NavSection>
             <NavItem>
-              <a href="/account">Account</a>
+              <a href="/profile">Profile</a>
             </NavItem>
           </NavSection>
         </NavList>
