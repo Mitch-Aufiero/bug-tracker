@@ -5,12 +5,21 @@ exports.findAll = async () => {
 };
 
 exports.findById = async (id) => {
-    const result = dbService.query('SELECT * FROM bugs WHERE id = ?', [id]);
-    if (!result.rows[0]) {
-        console.log("Could not find bug")
-        throw new Error('Bug not found')
-    };
-    return result;
+    try {
+        const result = await dbService.query('SELECT * FROM bugs WHERE bug_id = $1', [id]);
+        if (Array.isArray(result) && result.length === 0) {
+            console.log("Could not find bug by id: ", id);
+            throw new Error(`Bug with id ${id} not found`);
+        } else {
+            // Bug found
+            console.log("Bug found:", result);
+            return result; // result is the array of bugs
+        }
+        
+    } catch (error) {
+        console.log("Error in findByID:", error);
+        throw error;
+    }
 };
 
 exports.create = async(bugData) => {// should probably use the active record pattern

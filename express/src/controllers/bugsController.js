@@ -7,12 +7,18 @@ exports.getAllBugs = async (req, res) => {
 };
 
 exports.getBugById = async (req, res) => {
+  try {
     const bug = await bugModel.findById(req.params.id);
-    if (bug) {
-        res.json(bug);
-    } else {
+    res.json(bug); // If bug is found, this line will execute
+  } catch (error) {
+    // If the bug is not found, an error will be thrown and caught here
+    if (error.message.includes('Bug with id')) {
         res.status(404).json({ message: 'Bug not found' });
+    } else {
+        // Handle other types of errors, like database connection issues
+        res.status(500).json({ message: 'Internal Server Error' });
     }
+  }
 };
 
 exports.createBug = async (req, res) =>{

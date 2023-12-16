@@ -15,6 +15,20 @@ export const fetchBugs = createAsyncThunk(
   }
 );
 
+export const fetchBugById = createAsyncThunk(
+  'bugs/fetchBugById',
+  async (bugId, thunkAPI) => {
+    try {
+      const response = await apiRequest(`/bugs/${bugId}`);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+
 export const selectBugsByProjectId = (projectId) => {
   return (state) => {
     return state.bugs.items.filter(bug => bug.project_id === projectId);
@@ -25,7 +39,8 @@ export const selectCriticalBugs = (bugs) => {
   const criticalBugs = bugs.filter(bug => bug.severity === 'Critical');
   return criticalBugs;
 };
-  export const selectBugsBySeverity = (bugs) => {
+
+export const selectBugsBySeverity = (bugs) => {
   const severityMap = [{name:'Critical', count:0},{name:'High', count:0},{name:'Medium', count:0},{name:'Low', count:0}];
 
   bugs.forEach(bug => { 
@@ -40,6 +55,7 @@ export const selectCriticalBugs = (bugs) => {
   });
   return severityMap;
 };
+
 export const selectBugsByAssignee = (bugs) => {
   const assigneeMap = [];
 

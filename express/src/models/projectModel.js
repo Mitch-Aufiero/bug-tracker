@@ -6,7 +6,7 @@ exports.findAll = async () => {
 
 exports.findById = async (id) => {
     const result = dbService.query('SELECT * FROM projects WHERE project_id = ?', [id]);
-    if (!result.rows[0]) {
+    if (Array.isArray(result) && result.length === 0) {
         console.log("Could not find project")
         throw new Error('Project not found')
     };

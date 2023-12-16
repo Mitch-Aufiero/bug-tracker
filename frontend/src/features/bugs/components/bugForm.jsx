@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { apiRequest } from '../../../api/api';
-import { fetchBugs } from '../slices/bugSlice';
+import { fetchBugs, fetchBugById } from '../slices/bugSlice';
 import { Label, Input, Select, Button, Section, TextArea } from '../../../components/formStyles.js'
 
 import styled from 'styled-components';
@@ -32,8 +32,12 @@ const FormContainer = styled.form`
     text-align: left;
     grid-gap: 0.25rem;
 `;
-function BugForm() {
+
+function BugForm({bugId}) {
     const dispatch = useDispatch();
+    let bug = null;
+    const loading = useSelector(state => state.bugs.loading);
+    const error = useSelector(state => state.bugs.error);
     const [formData, setFormData] = useState({
         title: '',
         type: 'Functional Bug',
@@ -52,8 +56,37 @@ function BugForm() {
     useEffect(() => {
 
         fetchProjects();
+        const fetchBug = async () => {
+            try {
+              // Await the dispatched action
+              bug = await dispatch(fetchBugById(bugId)).unwrap();
+              console.log('Bug data:', bug);
 
-    }, []);
+            } catch (error) {
+              console.error('Failed to fetch bug:', error);
+            }
+          };
+      
+          if (bugId) {
+            fetchBug();
+          }
+
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (bug) {
+          setFormData({
+            title: bug.title || '',
+            type: bug.type || 'Functional Bug',
+            severity: bug.severity || 'Low',
+            project_id: bug.project_id || 1,
+            description: bug.description || '',
+            status: bug.status || 'New',
+            assignedTo: bug.assignedTo || '',
+            reportedBy: bug.reportedBy || '',
+          });
+        }
+      }, [bug]);
 
     async function fetchProjects() {
         try {
@@ -90,8 +123,6 @@ function BugForm() {
             assignedTo: parseInt(data.assignedTo, 10),
             reportedBy: parseInt(data.reportedBy, 10)
         };
-
-
         return preparedData;
     }
 
@@ -113,8 +144,14 @@ function BugForm() {
 
         } catch (error) {
             console.error("Error fetching bugs:", error);
-            //setLoading(false);
         }
+    }
+    if (loading){
+        return <div>loading...</div>
+    }
+
+    if (error){
+        return <div>error: {error}</div>
     }
 
     return (

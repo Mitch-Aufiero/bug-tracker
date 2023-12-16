@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BugForm from '../bugs/components/bugForm';
 import {StyledCreateButtonLink, BreadcrumbsContainer, BreadcrumbLink, BreadcrumbItem} from '../../components/navStyles'
@@ -20,19 +21,26 @@ const PageContainer = styled.div`
 
 
 function CreateBug() {
+  let { id } = useParams();
+
     return (
       <PageContainer>
         <Section gridArea='bread'>
           <BreadcrumbsContainer>
             <BreadcrumbLink to='/bugs'>Bugs</BreadcrumbLink>
-            <BreadcrumbItem>Create Bug</BreadcrumbItem>
+            {id? (
+               <BreadcrumbItem>Edit Bug</BreadcrumbItem>
+            ) : (
+              <BreadcrumbItem>Create Bug</BreadcrumbItem>
+            )}
+           
           </BreadcrumbsContainer>
         </Section>
         <Section gridArea='blank'>
 
         </Section>
         <Section gridArea='form'>
-          <BugForm></BugForm>
+          <BugForm bugId={id}></BugForm>
         </Section>
       </PageContainer>
     );
